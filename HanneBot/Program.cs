@@ -8,9 +8,9 @@ namespace HanneBot
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello Hanne!");
-        }
+        static void Main(string[] args) => new HBot()
+            .Run()
+            .GetAwaiter()
+            .GetResult();
     }
 }
