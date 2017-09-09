@@ -1,0 +1,3 @@
+# HanneBot
+
+Discord bot
