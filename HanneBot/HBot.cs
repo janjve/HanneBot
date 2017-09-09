@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using Discord;
 
 namespace HanneBot
 {
@@ -19,9 +20,21 @@ namespace HanneBot
         {
             var client = new DiscordSocketClient();
             string token = ConfigurationManager.AppSettings["bot_token"];
-            Console.WriteLine(token);
-            // await client.LoginAsync(TokenType.Bot, token);
-            // await client.StartAsync();
+            Console.WriteLine($"Connecting with token: {token.Substring(0, 10)} . . .");
+            await client.LoginAsync(TokenType.Bot, token);
+            await client.StartAsync();
+            client.MessageReceived += MessageReceivedAsync;
+
+            // Await forever.
+            await Task.Delay(-1);
+        }
+
+        private async Task MessageReceivedAsync(SocketMessage message)
+        {
+            if (message.Content == "?")
+            {
+                await message.Channel.SendMessageAsync(":thinking:");
+            }
         }
     }
 }
